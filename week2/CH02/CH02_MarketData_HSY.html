@@ -1,0 +1,675 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>2. 시장 데이터와 기본 데이터: 소스와 기법</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="d682e022-34f0-4bd1-9f2c-c36a50d1f1fe" class="page sans"><header><h1 class="page-title">2. 시장 데이터와 기본 데이터: 소스와 기법</h1><p class="page-description"></p></header><div class="page-body"><nav id="ca813147-2a45-44a7-949b-a677169fdaec" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#f6dee77e-bfb4-4316-a690-e5f9179df6e8">✅ 전통적인 전략</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#a72bc17d-4f5f-4a58-977e-d5babb34ca37">✅ 트레이딩 방법</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#be10d08c-6c8e-4095-a43c-e81d4119faac">✅ 고빈도 데이터</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#4139e448-915e-422b-8540-bafb5f3319d0">✅ Nasdaq 데이터</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#3e28149e-8ab6-4295-b9ad-dce6b2b75ae0">✅ 시장 Open API</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#b1b2bd48-3922-4d52-9bb6-fc1e62e16aa1">✅ 기본 데이터 작업</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#2d801402-025d-4e93-aa71-dff77d8ff2e6">Reference</a></div></nav><h2 id="f6dee77e-bfb4-4316-a690-e5f9179df6e8" class="">✅ 전통적인 전략</h2><ul id="8ec3066e-f379-4062-9ed3-193fc5fd84e7" class="bulleted-list"><li style="list-style-type:disc">주식 재무제표 데이터를 기반으로 재무 모델을 구축<ul id="75f07535-1760-4265-abda-a11a49a0766f" class="bulleted-list"><li style="list-style-type:circle">산업 or 매크로 데이터와 결합하기도함</li></ul></li></ul><ul id="134664e1-6ba8-4177-bcb2-227228ad2980" class="bulleted-list"><li style="list-style-type:disc">기술적 분석을 이용해 주가와 거래량으로부터 계산된 지표들을 사용해 시장 데이터에서 신호를 추출</li></ul><h2 id="a72bc17d-4f5f-4a58-977e-d5babb34ca37" class="">✅ 트레이딩 방법</h2><ul id="189cd1db-0a8b-4c37-8a20-bb5f677bd55e" class="bulleted-list"><li style="list-style-type:disc">시장가 주문 (market order): 주문이 거래 플랫폼에 도달하는 순간, 가능한 시장가격으로 즉시 체결 보장</li></ul><ul id="7de63014-d538-4aca-bf49-e5e810f33ca1" class="bulleted-list"><li style="list-style-type:disc">지정가 주문 (limit order)<ul id="63000d03-3c65-45aa-b85c-86e8fffe8728" class="bulleted-list"><li style="list-style-type:circle">매수: 시장 가격이 지정가보다 작은 경우에만 체결</li></ul><ul id="66c3f7b1-e474-4753-aec6-518c6dc57213" class="bulleted-list"><li style="list-style-type:circle">매도: 시장 가격이 지정가보다 큰 경우에만 체결</li></ul></li></ul><ul id="0787443c-7e49-4d56-ac40-95833ffed635" class="bulleted-list"><li style="list-style-type:disc">스탑 주문 (stop order)<ul id="ac7cab6d-b14a-4566-bf09-a4589000cd9a" class="bulleted-list"><li style="list-style-type:circle">매수: 시장 가격이 지정가보다 높은 경우에 활성화</li></ul><ul id="ecc777e4-b4af-4133-9060-ce5c850063d7" class="bulleted-list"><li style="list-style-type:circle">매도: 시장 가격이 지정가보다 낮은 경우에 활성화</li></ul><ul id="637a84ed-e733-4cf3-abea-dccb3fb658a1" class="bulleted-list"><li style="list-style-type:circle">공매도 (short sale)의 손실을 막고자 사용할 수 있음</li></ul></li></ul><ul id="edd10b49-f869-4c5e-9588-4fbbb467587f" class="bulleted-list"><li style="list-style-type:disc">모두 or 취소 주문 (all or none order)<ul id="d0abaa0a-8678-4cf3-818a-e82e1ce66fde" class="bulleted-list"><li style="list-style-type:circle">부분 체결을 방지</li></ul><ul id="6c36b8ae-0d47-449f-aad7-9021879de8c5" class="bulleted-list"><li style="list-style-type:circle">특정 주식수가 가능할 때만 체결</li></ul><ul id="238df35a-b1f1-4d4d-a6c7-ca812b79115c" class="bulleted-list"><li style="list-style-type:circle">하루 or 그 이상 유효</li></ul></li></ul><ul id="7533e60d-b675-45f6-99fe-411f99810928" class="bulleted-list"><li style="list-style-type:disc">즉시 모두 체결 or 취소 주문 (fill or kill order)<ul id="737de5a1-282d-43eb-bf3f-21b9380f3ce5" class="bulleted-list"><li style="list-style-type:circle">부분 체결을 방지</li></ul><ul id="3b03f939-5e8c-4f26-95c1-e1568e6e6f22" class="bulleted-list"><li style="list-style-type:circle">즉시 체결되지 않으면 취소됨</li></ul><ul id="a53f8bf4-72bb-4e4c-875e-0bf0ce321503" class="bulleted-list"><li style="list-style-type:circle">매매 가능한 주식수를 즉시 매수 or 매도하고 나머지는 취소</li></ul></li></ul><ul id="96159265-1871-43e8-b97b-47915b9af713" class="bulleted-list"><li style="list-style-type:disc">재량 주문 (not-held order): 브로커가 체결의 시점과 가격을 결정 할 수 있게함</li></ul><ul id="2bfba854-95f8-45af-ac45-3e1fefeb7704" class="bulleted-list"><li style="list-style-type:disc">시가 or 종가 시장 주문 (market on open/close order)<ul id="42682047-04ae-4ec4-9304-5dbc62dade8d" class="bulleted-list"><li style="list-style-type:circle">시장의 개장 시점이나 종료 시점 또는 근처에서 체결</li></ul><ul id="09c7d961-486f-4bd7-8a02-0f70e894564d" class="bulleted-list"><li style="list-style-type:circle">부분 체결이 허용됨</li></ul></li></ul><h2 id="be10d08c-6c8e-4095-a43c-e81d4119faac" class="">✅ 고빈도 데이터</h2><ul id="71bd70b9-4cd3-4814-9910-fa0a9afa2223" class="bulleted-list"><li style="list-style-type:disc">호가: <ul id="a58ecbc1-c821-43ad-94c0-6950703fd9e9" class="bulleted-list"><li style="list-style-type:circle">시장 데이터의 가장 중요한 소스</li></ul><ul id="ea35ba67-6052-4d0b-856d-16ffe335b967" class="bulleted-list"><li style="list-style-type:circle">미국 주식시장 데이터 종류<ul id="b51ca0c9-d52c-47eb-8b4c-020983fe8aa3" class="bulleted-list"><li style="list-style-type:square">L1 (Level1): 실시간 매수와 매도 호가 정보</li></ul><ul id="724d7466-b4f8-405e-8a40-bc0d90cf985b" class="bulleted-list"><li style="list-style-type:square">L2 (Level2): L1 + 주식 유동성 정보 (최근 거래 크기 및 시간)</li></ul><ul id="e7624f82-94ed-4f10-a598-8665f5229066" class="bulleted-list"><li style="list-style-type:square">L3 (Level3): L2 + 주문 실행 및 호가를 넣거나 변경 가능</li></ul></li></ul></li></ul><ul id="58158a78-cadb-4aa4-8d40-66c18a237e53" class="bulleted-list"><li style="list-style-type:disc"><a href="https://www.fixtrading.org/standards/">FIX 프로토콜</a>: 시장 참여자 간의 거래 체결 관련 소통을 위한 메시징 표준<ul id="f8c41aed-32c6-441d-b498-eb582950236e" class="bulleted-list"><li style="list-style-type:circle">메시지 시퀀스로 호가창을 재구성 가능</li></ul><ul id="416df42b-47ff-4764-8379-d8dccacfd29d" class="bulleted-list"><li style="list-style-type:circle">프로토콜 종류<ul id="ac508929-9b41-4461-97c8-d3234274eeba" class="bulleted-list"><li style="list-style-type:square">Key-value</li></ul><ul id="6f7e9dc3-ab67-4869-b0af-65ee1766d266" class="bulleted-list"><li style="list-style-type:square">태그 기반 FIXML</li></ul></li></ul></li></ul><h2 id="4139e448-915e-422b-8540-bafb5f3319d0" class="">✅ Nasdaq 데이터</h2><ul id="f0684d56-4803-402e-a0d5-35f2dd7be44d" class="bulleted-list"><li style="list-style-type:disc">Nasdaq TotalView-ITCH: 나스닥에서 개별 주문을 추적할 수 있게해주는 직접 데이터 피드 프로토콜<ul id="c8dc6677-5588-4761-b1c5-8d779c9e531e" class="bulleted-list"><li style="list-style-type:circle">호가창 재구성 가능<ul id="744c0b24-be04-46d5-a873-1255caa6f91c" class="bulleted-list"><li style="list-style-type:square">호가창: 가격별로 매수 or 매도 호가되는 주식의 수를 보여줌으로써 장중 시장의 깊이를 알려줌</li></ul><ul id="d5a44cc0-6fa4-4972-8ada-eeec4af33aeb" class="bulleted-list"><li style="list-style-type:square">시장의 깊이: 유동성과 대규모 시장가 주문의 잠재적 가격 영향을 파악하는 핵심 지표</li></ul></li></ul><ul id="6fafae0e-ae6e-4581-aa3f-a61c4721c52e" class="bulleted-list"><li style="list-style-type:circle">이진 주문 메시지 형식<ul id="524c684b-9b6c-4cbd-aba1-6632cc103e53" class="bulleted-list"><li style="list-style-type:square">python <code>struct</code> 모듈</li></ul></li></ul></li></ul><ul id="78bf2ef4-f3f7-457f-a898-85c9753a4f96" class="bulleted-list"><li style="list-style-type:disc">Normalization<ul id="77395dc2-1489-4e77-ae3d-f4d6f9ec0b04" class="bulleted-list"><li style="list-style-type:circle">거래 데이터는 나노초 단위 → noise가 많음 → tick 데이터의 주기를 바꾸고 정규화 필요</li></ul><ul id="a01d2166-4fc7-4812-9fba-cfa67fd49f70" class="bulleted-list"><li style="list-style-type:circle">거래량 Bar: 주문 파편화 고려<ul id="5f3f7209-eb75-434e-8098-563e01ab7473" class="bulleted-list"><li style="list-style-type:square">시간 Bar는 잡음을 평활화하지만, 파편화된 주문 처리를 하지 못함</li></ul></li></ul><ul id="c9f6d475-d351-4e4e-b48e-9173f94222b9" class="bulleted-list"><li style="list-style-type:circle">거래 금액 Bar: 가격 변화를 고려<ul id="bfad86dc-db0f-46c8-90a6-70c332ac544d" class="bulleted-list"><li style="list-style-type:square">거래량 Bar는 자산 가격이 크게 변하거나 주식 분할이 일어난 후 주식 수의 가치가 변하는 사실과 트레이딩 행태를 반영하지 못함</li></ul><ul id="37700989-06a5-4e99-a937-4915213d0e8d" class="bulleted-list"><li style="list-style-type:square">주식 수와 가격의 곱을 이용한 거래 금액 Bar로 조정</li></ul></li></ul></li></ul><h2 id="3e28149e-8ab6-4295-b9ad-dce6b2b75ae0" class="">✅ 시장 Open API</h2><ul id="e41a8462-1c67-4f32-bdc7-b60e3ce91450" class="bulleted-list"><li style="list-style-type:disc">yfinance: 야후 파이낸스에서 과거 시장 데이터를 제공<ul id="86c4c715-530b-4697-838d-0a76ea2b2823" class="bulleted-list"><li style="list-style-type:circle">Ticker로 데이터 포인트 다운로드</li></ul><ul id="3fe92977-0b4f-46f6-95b4-6fc9a57ec74f" class="bulleted-list"><li style="list-style-type:circle">history 메서드로 다양한 기간과 빈도로 과거 가격을 얻을 수 있음</li></ul><ul id="3f252fc4-2eac-45ef-86d2-7f81b0e1ae31" class="bulleted-list"><li style="list-style-type:circle">옵션 만기일, 가격 계약 등 정보 제공</li></ul><ul id="1fc783c2-ecab-430a-bed4-877474accbfa" class="bulleted-list"><li style="list-style-type:circle">프록시 서버의 사용을 허용</li></ul></li></ul><ul id="93fd2bbb-ae9d-4f23-92da-8ba0301777e5" class="bulleted-list"><li style="list-style-type:disc">Quantopian (퀀토피안)<ul id="e0765cc1-12dd-41c4-9a70-0f215c8dcc9d" class="bulleted-list"><li style="list-style-type:circle">데이터 소스를 사용해 트레이딩 아이디어 연구 가능</li></ul><ul id="534e37e1-d0bf-48fe-b80d-5e3334e4c3d4" class="bulleted-list"><li style="list-style-type:circle">백테스트 가능</li></ul><ul id="71cbbc6b-b362-4673-b5c3-6244f67e95d0" class="bulleted-list"><li style="list-style-type:circle">실시간 데이터로 표본 외 데이터에 대해 포워드 테스트 가능</li></ul><ul id="d01f37fe-b130-46b6-9424-d0c3a0eeb997" class="bulleted-list"><li style="list-style-type:circle">페이퍼 트레이딩<ul id="9354ff03-3a77-42d5-90c2-7bc0ca0bc3ff" class="bulleted-list"><li style="list-style-type:square">실시간 데이터로 알고리즘을 시뮬레이션 가능</li></ul></li></ul><ul id="49385d7a-5bd5-48dc-9306-7bb49fa5adeb" class="bulleted-list"><li style="list-style-type:circle">2020년에 문 닫음 → 웹 사이트 없음<ul id="99048327-aeb0-4f11-9813-b5558ff6a489" class="bulleted-list"><li style="list-style-type:square">ziplien, alphalens, pyfolio, empirical에 의해 원래 기능이 유지되고 있음</li></ul></li></ul></li></ul><ul id="2b46df33-343f-42e9-83d9-c1c399dd322f" class="bulleted-list"><li style="list-style-type:disc">Zipline (집라인)<ul id="8e6325e4-b871-47b5-8d1c-6e22d2969809" class="bulleted-list"><li style="list-style-type:circle">Quantopian 백테스트와 실시간 트레이딩 플랫폼을 작동시키는 알고리즘 트레이딩 라이브러리</li></ul><ul id="7ebdaa55-05a5-45a3-a429-f71ade1f5b7d" class="bulleted-list"><li style="list-style-type:circle">오프라인에서도 사용 가능<ul id="5389a1ed-ce37-491e-9264-70e53e9df8ca" class="bulleted-list"><li style="list-style-type:square">트레이딩 아이디어의 성과 테스트 가능</li></ul></li></ul></li></ul><ul id="e525c6e5-cd84-4a43-a42e-0f089d2f6b00" class="bulleted-list"><li style="list-style-type:disc">Quandl (퀀들)<ul id="a0a50b59-176c-4233-9bd5-14f0d33ef4ab" class="bulleted-list"><li style="list-style-type:circle">광범위한 데이터 소스를 무료로 제공<ul id="1f940fc1-c5f2-4942-a30c-a3dde0b28917" class="bulleted-list"><li style="list-style-type:square">API 등록 시, 하루 50회 이상 무료로 호출 가능</li></ul></li></ul><ul id="f4974379-85c9-4e90-a1b4-a7f825228c21" class="bulleted-list"><li style="list-style-type:circle">여러 자산군을 커버<ul id="9929453a-aa80-4585-b265-80b600440a55" class="bulleted-list"><li style="list-style-type:square">외환, 채권, 지수, 선물, 옵션, 상품</li></ul></li></ul><ul id="c79ccc96-363c-45bb-ae41-c6c3f7e940db" class="bulleted-list"><li style="list-style-type:circle">사용이 간편함</li></ul><ul id="3283e11c-eae2-4857-b7f9-dead13cf1601" class="bulleted-list"><li style="list-style-type:circle">문서화가 잘 되어 있음</li></ul><ul id="4ea28716-879d-4c5f-8875-51b38aa1bcc5" class="bulleted-list"><li style="list-style-type:circle">유연한 라이브러리<ul id="09310a31-2aac-4458-a113-de615346487a" class="bulleted-list"><li style="list-style-type:square">단일/벌크 다운로드 + 메타 데이터 탐색 가능</li></ul></li></ul></li></ul><h2 id="b1b2bd48-3922-4d52-9bb6-fc1e62e16aa1" class="">✅ 기본 데이터 작업</h2><ul id="680ea609-90cb-41b2-abca-4186597cb5df" class="bulleted-list"><li style="list-style-type:disc">기본 데이터의 성격은 자산에 달려있음<ul id="a0b43ebe-a4fb-4634-a1dc-e85b77b1342b" class="bulleted-list"><li style="list-style-type:circle">주식, 기업 credit → 재무 및 산업과 경제 전반</li></ul><ul id="d2e65589-6a89-45c4-b346-5b148dc0d4e7" class="bulleted-list"><li style="list-style-type:circle">정부채 → 국제 거시 경제, 외환</li></ul><ul id="fc3d648c-a35f-43e8-a71e-3c03d4d0d4c8" class="bulleted-list"><li style="list-style-type:circle">상품 → 수확 시기의 날씨, 자산 특화된 수급 결정 팩터</li></ul></li></ul><ul id="a7f10417-0f3a-4f4b-85c5-04f52ed84644" class="bulleted-list"><li style="list-style-type:disc">재무제표 데이터<ul id="b8748426-248d-49f3-8991-4184b875f24d" class="bulleted-list"><li style="list-style-type:circle">SEC가 공개한 XBRL 활용</li></ul><ul id="135c3896-1666-451d-b2fc-70663c0a0576" class="bulleted-list"><li style="list-style-type:circle">재무제표: 대차대조표, 손익계산서, 현금 흐름표, 지분변동 및 종합소득</li></ul></li></ul><ul id="d135cf70-1cc2-4327-b777-043314b6e811" class="bulleted-list"><li style="list-style-type:disc">거시 경제 및 산업 데이터<ul id="095e96b0-d705-4241-b333-5b873b9e78ae" class="bulleted-list"><li style="list-style-type:circle">pandas_datareader 활용</li></ul><ul id="d8b67be5-61cc-4839-a9ce-5dbae672fdf1" class="bulleted-list"><li style="list-style-type:circle">케네스 프렌치 교수 데이터</li></ul><ul id="9cc94d49-4f8a-47c5-b570-fb4a3be65cb4" class="bulleted-list"><li style="list-style-type:circle">FRED: 미국 연준 데이터</li></ul><ul id="0eb8e7b1-1bdd-4634-9946-b7fc158316bf" class="bulleted-list"><li style="list-style-type:circle">세계은행</li></ul><ul id="632df92c-3717-41cf-b1eb-126d771fa9a6" class="bulleted-list"><li style="list-style-type:circle">OECD</li></ul><ul id="c96ba409-c12f-439d-b144-7a160b57ac2d" class="bulleted-list"><li style="list-style-type:circle">에니그마</li></ul><ul id="8c880abc-e1f6-4ba3-b628-63c2d7023dd3" class="bulleted-list"><li style="list-style-type:circle">유로스탯</li></ul></li></ul><h1 id="2d801402-025d-4e93-aa71-dff77d8ff2e6" class="">Reference</h1><ul id="2d17585b-9ffe-4ef4-bf61-3b3dd9219e3e" class="bulleted-list"><li style="list-style-type:disc"><a href="https://www.fixtrading.org/standards/">FIX 표준</a></li></ul><p id="3476b37d-e868-4332-9f61-7e1ec7982281" class="">
+</p></div></article></body></html>
