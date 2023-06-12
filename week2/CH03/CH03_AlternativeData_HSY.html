@@ -1,0 +1,675 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>3. 금융을 위한 대체 데이터: 범주와 사용 사례</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="dffadfc2-0943-40ce-812e-82e25f01fdf0" class="page sans"><header><h1 class="page-title">3. 금융을 위한 대체 데이터: 범주와 사용 사례</h1><p class="page-description"></p></header><div class="page-body"><h2 id="231e35cf-0d7a-4537-8d55-e28b35ca64df" class="">✅ 대체 데이터 혁명</h2><ul id="98852163-81e1-4582-804b-cbe7aa7d4503" class="bulleted-list"><li style="list-style-type:disc">5V (Volume, Velocity, Variety, Veracity, Value)</li></ul><ul id="20acbb9f-8e45-4469-8bd5-591d7062e77a" class="bulleted-list"><li style="list-style-type:disc">매크로, 회사별 데이터 예시<ul id="924f11a7-f47b-434f-ac4d-0733188fae09" class="bulleted-list"><li style="list-style-type:circle">온라인 가격 데이터: 인플레이션 측정</li></ul><ul id="04a8e4af-649e-4379-9ab7-c32b2da7bda2" class="bulleted-list"><li style="list-style-type:circle">매장 방문 횟수, 구매 횟수: 경제 활동의 실시간 추정</li></ul><ul id="17145f2a-c7db-4c31-ba4d-3919e3a4a7db" class="bulleted-list"><li style="list-style-type:circle">인공위성 이미지: 수확량, 광산, 석유 굴착장에서의 활동 포착</li></ul></li></ul><ul id="bcc8aac8-3800-4242-8ffa-afd9abf7850c" class="bulleted-list"><li style="list-style-type:disc">머신러닝 지표<ul id="0f213a25-645c-4647-89e6-b4b913d3faf1" class="bulleted-list"><li style="list-style-type:circle">Momentum: 시장 가격 변동, 산업 심리, 경제 팩터에 대한 자산 노출</li></ul><ul id="6be91508-a7e2-433a-8afe-c9e4ab5785c3" class="bulleted-list"><li style="list-style-type:circle">Value: 재무제표 + 경제 및 산업별 정형/비정형 데이터 분석</li></ul><ul id="696c473f-e467-486e-a02c-00ce77becb44" class="bulleted-list"><li style="list-style-type:circle">Quality: 고객 평가, 직원 리뷰, 앱 트래픽 등으로 시장 점유율 및 기초 수익 팩터로 이익 식별</li></ul><ul id="99927ab7-88bc-4e4c-a159-f47d45865647" class="bulleted-list"><li style="list-style-type:circle">Sentiment: 뉴스 및 SNS 콘텐츠의 감성 탐지</li></ul></li></ul><h2 id="3d031c2b-9cff-4f88-9925-834dc9b648de" class="">✅ 대체 데이터 원천</h2><ul id="b659f086-d9d5-449b-805d-740560a03e40" class="bulleted-list"><li style="list-style-type:disc">개인: SNS, 상품 리뷰, 검색 엔진<ul id="5da8fdc2-26aa-4c9c-823e-ea8822cf5fb1" class="bulleted-list"><li style="list-style-type:circle">SNS: twitter, facebook, linkedin</li></ul><ul id="27ac53a6-e88d-4a8d-84c4-f509c8a093d0" class="bulleted-list"><li style="list-style-type:circle">전자상거래: amazon</li></ul><ul id="29781452-9e35-445b-9527-35e8c422ddd2" class="bulleted-list"><li style="list-style-type:circle">검색 엔진: google, bing</li></ul></li></ul><ul id="d2682fc6-af07-4923-9184-1ccd7bf93544" class="bulleted-list"><li style="list-style-type:disc">비즈니스: 상업 거래 (ex. 신용카드), 중개 활동<ul id="6a96a9d6-0072-477b-b520-80576cefac42" class="bulleted-list"><li style="list-style-type:circle">결제 카드 거래 데이터, POS 데이터</li></ul><ul id="5529ca7b-5198-458b-a3bd-86f3e2c54067" class="bulleted-list"><li style="list-style-type:circle">거래 흐름 및 시장 미시 구조 데이터</li></ul><ul id="73fcffd9-74b1-4e68-a6e1-c6b2a3cf2a55" class="bulleted-list"><li style="list-style-type:circle">신용 평가 회사, 회사 지급금</li></ul></li></ul><ul id="2f61af6f-1bde-4491-95b9-27d6ade84197" class="bulleted-list"><li style="list-style-type:disc">센서: 위성 사진, 보안 카메라로 사람들의 움직임 패턴 포착</li></ul><h2 id="85591524-2ebb-48f9-bb7a-ee12c2677886" class="">✅ 평가 기준</h2><ul id="605370c8-bef8-4285-84cf-208ea8c98731" class="bulleted-list"><li style="list-style-type:disc">대체 데이터의 목표: 수익을 창출하는 독립적인 트레이딩 신호를 탐색하는 것<ul id="17e8cda1-226d-4935-be6f-24a9cf94af4e" class="bulleted-list"><li style="list-style-type:circle">높은 sharp ratio를 유지하면 사용 가능</li></ul><ul id="639a9885-0c80-4ac2-9ff7-1ed8ed2fe994" class="bulleted-list"><li style="list-style-type:circle">과거 데이터에 과대적합될 가능성을 염두</li></ul><ul id="79c5b428-d822-44ef-896d-f76270684bef" class="bulleted-list"><li style="list-style-type:circle">데이터 세트에 초점을 맞추는 것이 신호 내용의 반감기를 연장하기 위한 효과적인 전략</li></ul></li></ul><ul id="b55b7ecd-a0bb-4402-b815-9d6e2cf68f11" class="bulleted-list"><li style="list-style-type:disc">신호 내용 품질: 자산군, 투자 스타일, 전통적인 리스크 프리미엄과의 관계, 알파 내용과 관련하여 평가 가능<ul id="a6ed31a2-a8bb-46c8-9dd5-a9757385f035" class="bulleted-list"><li style="list-style-type:circle">자산군<ul id="6610c3d8-8f20-46c4-85c3-f2ba223fe0ce" class="bulleted-list"><li style="list-style-type:square">대부분의 대체 데이터는 주식과 원자재에 밀접하게 관련됨</li></ul><ul id="52da23d1-d69e-4e2c-9dc0-672099f9fb1d" class="bulleted-list"><li style="list-style-type:square">부동산: zillow가 2006년에 가격 추정을 함</li></ul><ul id="a985aadb-9fb0-42eb-a08b-f4496ecbed5d" class="bulleted-list"><li style="list-style-type:square">기업 신용: 기업 지급을 모니터링</li></ul><ul id="c40ab706-981b-4f02-9e37-7310c35d7a02" class="bulleted-list"><li style="list-style-type:square">고정 수집, 이자율 프로젝트: 제품 판매 및 가격 정보</li></ul></li></ul><ul id="78f9951d-096c-4025-9a8a-5b106cad49b4" class="bulleted-list"><li style="list-style-type:circle">투자 스타일<ul id="f59e2cec-9984-4561-928e-c199f7749207" class="bulleted-list"><li style="list-style-type:square">롱/숏 전략 트레이더: 특정 섹터, 주식에 초점</li></ul><ul id="dab216a0-819b-46dd-ab20-1762b0579af6" class="bulleted-list"><li style="list-style-type:square">매크로 테마형 투자자: 소비자의 신용, 신흥 시장에서의 활동, 원자재 동향</li></ul><ul id="e1dfc3fa-1edc-4840-a5ad-aa7bef4569de" class="bulleted-list"><li style="list-style-type:square">고빈도 트레이더: 뉴스를 포착하는 신호</li></ul></li></ul><ul id="23fe26de-27ac-42ae-8528-79bae35a7613" class="bulleted-list"><li style="list-style-type:circle">리스크 프리미엄<ul id="4a86967e-58da-48c7-b329-fbe7bf55a9b8" class="bulleted-list"><li style="list-style-type:square">신용카드 지급, SNS 감성 데이터는 리스크 프리미엄(모멘텀, 변동성)과 5% 미만의 낮은 상관성을 갖는 신호를 생성</li></ul></li></ul><ul id="0a3cb04d-ad37-4979-a7d4-397368956aa3" class="bulleted-list"><li style="list-style-type:circle">알파<ul id="9f8caac3-9b4f-43d2-83ed-184889211e0d" class="bulleted-list"><li style="list-style-type:square">백테스트: 알파의 양을 추정</li></ul><ul id="e9cbb16d-5b03-4148-a71c-16879f98569c" class="bulleted-list"><li style="list-style-type:square">데이터 세트는 알파 내용을 평가하는 것 이외에 신호가 증분인지, 직교인지 판단</li></ul></li></ul></li></ul><ul id="b40de6c7-d9e4-473a-b958-6c1d5d257e37" class="bulleted-list"><li style="list-style-type:disc">데이터 품질: 예측 신호의 신뢰성에 영향을 미침<ul id="a7ba4664-c850-42e5-b7a9-6d78678ab958" class="bulleted-list"><li style="list-style-type:circle">법적/평판 리스크<ul id="5919dd8e-1089-48eb-a9fe-77107bfe75e0" class="bulleted-list"><li style="list-style-type:square">중요 비공개 정보, 개인 식별 정보</li></ul><ul id="3ca13859-122e-4c0d-827c-62da818059b8" class="bulleted-list"><li style="list-style-type:square">법률 및 규정 준수 요구 사항을 철저히 검토</li></ul></li></ul><ul id="c4c9b68e-a0c8-4aa2-be73-3a1b37e64c6a" class="bulleted-list"><li style="list-style-type:circle">독점력<ul id="00b3fbe5-93e7-4caf-9709-cda348c1401e" class="bulleted-list"><li style="list-style-type:square">이의 가용성과 처리 용이성은 예측 신호가 포함될 가능성과 반비례 관계</li></ul><ul id="de8a5f87-6dd2-4698-904b-def8f3132e73" class="bulleted-list"><li style="list-style-type:square">데이터를 처리하기 어려울수록 독점력있는 데이터일수록 신호 포함 가능성이 높아짐<ul id="8b92f4ea-5433-4982-81df-6d7246234aa0" class="bulleted-list"><li style="list-style-type:disc">표준 재무 비율 공개 데이터는 알파가 포함될 가능성이 거의 없음 (but 리스크 팩터의 포트폴리오를 다각화)</li></ul></li></ul></li></ul><ul id="263de5bf-2446-4991-b041-19dde05114af" class="bulleted-list"><li style="list-style-type:circle">투자 기간</li></ul><ul id="d1b6cc6b-7620-4995-ae3f-7fba95581d82" class="bulleted-list"><li style="list-style-type:circle">데이터 빈도</li></ul><ul id="327025ff-c436-4b9c-9b5e-63fd556868eb" class="bulleted-list"><li style="list-style-type:circle">데이터 신뢰성</li></ul></li></ul><ul id="091b61d3-c4b0-4ffc-9539-7f65a8fac2fa" class="bulleted-list"><li style="list-style-type:disc">다양한 기술적 측면<ul id="89e0703f-2abe-4816-932a-433af8cd4233" class="bulleted-list"><li style="list-style-type:circle">레이턴시: 데이터 수집 방법, 후속 처리와 전송, 규제 등으로 발생 가능</li></ul><ul id="7807227b-6c00-40cb-9500-9aa659d00c9d" class="bulleted-list"><li style="list-style-type:circle">데이터 형식</li></ul><p id="40860705-f863-4310-9c8f-a92a6967173c" class="">
+</p></li></ul></div></article></body></html>
