@@ -1,0 +1,677 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>(발표) 4. 알파 팩터 리서치</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-interactiveBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-translucentGray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="5e4e5d28-1adb-4a88-a23c-6f5c35918592" class="page sans"><header><h1 class="page-title">(발표) 4. 알파 팩터 리서치</h1><p class="page-description"></p></header><div class="page-body"><nav id="dc69b5d6-769d-4b19-a477-87c29d7743c7" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#aeedb267-ba90-41ce-8d37-ea9cab65eaa6">✅ 알파 팩터란 무엇인가?</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#fe51911e-2c3c-4576-9054-fb85ec6da894">✔️ 정의</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#19a9fabc-9c82-4631-ac17-0cf91e6587f2">✔️ 워크 플로우</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#9aa3eacd-81b9-40d0-af44-c64192310d95">✅ 모멘텀 팩터</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#e7b1bd99-9bb2-4807-b09d-84b81f26f3aa">✔️ 모멘텀 팩터</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#4cb36a89-4ef2-4bc6-b2a4-d801b2cfa257">✔️ 심리 지표</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#c30477b7-6ea0-4126-9828-933a4364de90">✅ 가치 전략</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#ada654f1-5281-46bf-b768-88961f259ed8">✔️ 가치 팩터</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#a1381cdb-644a-40ba-b9a0-5bd8a1f18350">✔️ 가치 전략</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#e827eac1-a5f8-47ed-8923-11fd2dd05d73">✔️ 가치 효과</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#ea14cc87-c5a8-4d05-a75b-964c9be7df95">✅ 변동성, 규모 이례 현상</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#014825d3-2147-48f3-a0a1-c6d149ddc5a2">✔️ 저변동성 이례 현상의 행동 경제학적 설명</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#9c127a6e-256d-4f09-85d3-74c8af06b753">✔️ 우량주 팩터</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#d2ec411b-c59a-4e4e-93d6-e7e3cd0e6825">✅ 기술적 알파 팩터</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#abb1eb4d-1081-4c65-a777-e0dc89ee02af">✔️ 파마-프렌치</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#11153313-864b-42ee-a180-d3b0769af72e">✔️ 볼린저 밴드</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#6fcb3951-ce6a-4e60-8f70-ecf06832753a">✔️ 칼만 필터</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#ebaf9c23-6a32-4b00-96af-bc9c765a7a2b">✔️ 웨이블릿</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#76a6f452-576a-4bab-bbb6-1d4f4d505de0">✔️ 집라인</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#87a512c9-f76f-41c3-b0ba-3e71687fa848">✔️ 알파렌즈</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#aab774a2-57ec-4d10-bc01-1a9efbbffea7">✔️ 정보 계수</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#910b43c6-ea71-4c85-be09-0d78c0eae116">✔️ 팩터 회전율</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#f31e60b8-7139-43aa-b94b-e8d8dca8ff5a">Reference</a></div></nav><h2 id="aeedb267-ba90-41ce-8d37-ea9cab65eaa6" class="">✅ 알파 팩터란 무엇인가?</h2><h3 id="fe51911e-2c3c-4576-9054-fb85ec6da894" class="">✔️ 정의</h3><ul id="b7302593-6646-49e9-930c-e130bcb03e4b" class="bulleted-list"><li style="list-style-type:disc">알파(alpha): 시장의 수익률을 초과하는 수익률 (Excess return)<ul id="bbb3c19e-71a8-4d08-9aa7-d26d67153ff1" class="bulleted-list"><li style="list-style-type:circle">일반적으로 자산 운용사의 액티브 펀드 매니저들이 시장을 얼마나 이겼는지 측정하는 중요 지표</li></ul><ul id="10b73ad7-967d-44fc-9b96-b285f22af825" class="bulleted-list"><li style="list-style-type:circle">ex. 코스피 지수 성과가 5%, 포트폴리오가 10%였다면, 5%의 알파를 창출한 것</li></ul></li></ul><ul id="ee50e81e-62f6-4e30-b62d-379ca0c46629" class="bulleted-list"><li style="list-style-type:disc">알파 팩터(alpha factor): 자산 가격의 움직임을 예측하는 것을 목표로 하는 원시 데이터의 변환<ul id="d96e76c7-e47c-4b71-94b4-6fdc8ddd395f" class="bulleted-list"><li style="list-style-type:circle">자산 수익률을 높이는 리스크를 포착하는 것이 목표</li></ul><ul id="a5a70788-47ea-4949-9340-1faef4614a38" class="bulleted-list"><li style="list-style-type:circle">시장, 기본, 대체 데이터를 변환한 것<ul id="33347c6f-cbcc-418b-bc5f-be67f8bc67a1" class="bulleted-list"><li style="list-style-type:square">변수의 시간에 따른 상대적/절대적 변화</li></ul><ul id="c04f5d3b-3299-40c4-9c59-0304bc57ee85" class="bulleted-list"><li style="list-style-type:square">데이터 시리즈 간 비율</li></ul><ul id="2e729592-bc82-4569-9141-57d0f7cde38b" class="bulleted-list"><li style="list-style-type:square">단순/지수 이동 평균과 같은 일정 기간 동안의 합계 등</li></ul></li></ul><ul id="e27c5e49-2deb-4fdd-9beb-c3eaab9f92d1" class="bulleted-list"><li style="list-style-type:circle">알고리즘 트레이딩 전략은 자산 매수/매도를 가리키는 <mark class="highlight-red"><strong>신호</strong></mark>에 의해 결정됨</li></ul><ul id="76bc1cb8-662d-4c91-a84c-a8880a5261ba" class="bulleted-list"><li style="list-style-type:circle"><a href="https://arxiv.org/pdf/1601.00991.pdf">Kakushadze 101개 알파 팩터 공식</a>의 80%는 월드퀀트 헤지 펀드에서 실제로 사용되고 있음</li></ul><ul id="0413b20e-35c8-423d-a838-cbc93bf73b09" class="bulleted-list"><li style="list-style-type:circle">ML 모델에 유용한 input으로 사용됨</li></ul></li></ul><h3 id="19a9fabc-9c82-4631-ac17-0cf91e6587f2" class="">✔️ 워크 플로우</h3><ul id="c1670fdc-02d5-456e-9cf1-36bbd582c6ec" class="bulleted-list"><li style="list-style-type:disc">리서치 step<ul id="555c41c4-7ecd-446c-a585-674c0c865e4a" class="bulleted-list"><li style="list-style-type:circle">예측 데이터 수집 &gt; 투자 유니버스 정의 &gt; 알파 팩터 설계 &gt; 알파 팩터 결합</li></ul></li></ul><ul id="6106df9d-aef7-4b14-b99a-77d6bf720709" class="bulleted-list"><li style="list-style-type:disc">실행 step<ul id="8b7456b4-32a2-4605-9edf-f1e339be6633" class="bulleted-list"><li style="list-style-type:circle">포트폴리오 최적화 &gt; 트레이드 실행</li></ul></li></ul><h2 id="9aa3eacd-81b9-40d0-af44-c64192310d95" class="">✅ 모멘텀 팩터</h2><ul id="4fad37ca-1c1a-4223-a9e7-3e5f930ecd1f" class="bulleted-list"><li style="list-style-type:disc">모멘텀 팩터: 일정 기간에 걸쳐 성과가 좋은 자산들은 매수하고 동기간에 성과가 안 좋은 자산들은 공매도하게 설계</li></ul><ul id="eed023cb-32ae-4f55-aa36-b6c6bdda0af0" class="bulleted-list"><li style="list-style-type:disc">전제: 자산 가격이 양의 시계열 상관관계로 반영되는 추세를 보인다는 것</li></ul><ul id="03daf0aa-8adf-4aa0-98af-e904753b4c1c" class="bulleted-list"><li style="list-style-type:disc">효과 원인<ul id="a8526524-b52b-4ec5-bd4e-4a0f1e050736" class="bulleted-list"><li style="list-style-type:circle">투자자의 새로운 정보(ex. 뉴스)에 대한 과소/과대 반응</li></ul><ul id="aea04385-0d37-4cc3-b423-a8f95441750d" class="bulleted-list"><li style="list-style-type:circle">시장 마찰로 인한 지속적인 수요와 공급의 불균형</li></ul><ul id="08c58867-198a-4330-9451-8718920c468b" class="bulleted-list"><li style="list-style-type:circle">리스크 자산과 경제와의 양의 피드백 루프</li></ul><ul id="4697154c-76b6-40f0-998a-6a0c64b7fd39" class="bulleted-list"><li style="list-style-type:circle">시장 미시 구조<ul id="df270562-545f-4f3b-98fc-d25ace49489a" class="bulleted-list"><li style="list-style-type:square">자산의 성과가 나쁠 때 매도하고 자산의 성과가 좋을 때 매수하도록하는 행위로 인함</li></ul><ul id="e0bc85a1-05c9-4de4-aa15-32aca682cbd2" class="bulleted-list"><li style="list-style-type:square">ex. 손절매, 고정 비율 포트폴리오 보험 (CPPI), 동적 델타 헤징, 방어적 풋</li></ul></li></ul></li></ul><ul id="d78f3178-df63-4f84-90f3-e7f27e957e45" class="bulleted-list"><li style="list-style-type:disc">상대 강도 지수 (RSI): 최근 가격 변화를 종목 간 비교해서 과매수/과매도된 종목을 확인</li></ul><h3 id="e7b1bd99-9bb2-4807-b09d-84b81f26f3aa" class="">✔️ 모멘텀 팩터</h3><ul id="2bd3cbd4-8a4b-4ad3-9bd6-4d1f4b39c6bd" class="bulleted-list"><li style="list-style-type:disc"><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi><mi>S</mi><mi>I</mi><mo>=</mo><mstyle scriptlevel="0" displaystyle="true"><mrow><mn>100</mn><mo>−</mo><mfrac><mn>100</mn><mrow><mn>1</mn><mo>+</mo><mfrac><mrow><msub><mi>Δ</mi><mi>p</mi></msub><mi>u</mi><mi>p</mi></mrow><mrow><msub><mi>Δ</mi><mi>p</mi></msub><mi>d</mi><mi>o</mi><mi>w</mi><mi>n</mi></mrow></mfrac></mrow></mfrac></mrow></mstyle></mrow><annotation encoding="application/x-tex">RSI=\displaystyle{100-{100 \over {1 + {\varDelta_pup\over \varDelta_pdown}}}}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">RS</span><span class="mord mathnormal" style="margin-right:0.07847em;">I</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.739411em;vertical-align:-1.417971em;"></span><span class="mord"><span class="mord">100</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord"><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.32144em;"><span style="top:-2.1243489999999996em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">1</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mord"><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.985651em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathit mtight">Δ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.16454285714285716em;"><span style="top:-2.357em;margin-left:0em;margin-right:0.07142857142857144em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mathnormal mtight">p</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2818857142857143em;"><span></span></span></span></span></span></span><span class="mord mathnormal mtight">d</span><span class="mord mathnormal mtight">o</span><span class="mord mathnormal mtight" style="margin-right:0.02691em;">w</span><span class="mord mathnormal mtight">n</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.50732em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathit mtight">Δ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.16454285714285716em;"><span style="top:-2.357em;margin-left:0em;margin-right:0.07142857142857144em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mathnormal mtight">p</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2818857142857143em;"><span></span></span></span></span></span></span><span class="mord mathnormal mtight">u</span><span class="mord mathnormal mtight">p</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.5423199999999999em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.677em;"><span class="pstrut" style="height:3em;"></span><span class="mord"><span class="mord">100</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.417971em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></span></span><span>﻿</span></span><ul id="83e40d0a-aa5d-4ff2-aa2d-88ee6084e343" class="bulleted-list"><li style="list-style-type:circle"><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>Δ</mi><mi>p</mi></msub><mi>u</mi><mi>p</mi></mrow><annotation encoding="application/x-tex">\varDelta_pup</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.969438em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathit">Δ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.15139200000000003em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">p</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span><span class="mord mathnormal">u</span><span class="mord mathnormal">p</span></span></span></span></span><span>﻿</span></span>: 상승 가격 변화</li></ul><ul id="b204ebc2-2d83-4f5c-82e9-c922318321a2" class="bulleted-list"><li style="list-style-type:circle"><style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>Δ</mi><mi>p</mi></msub><mi>d</mi><mi>o</mi><mi>w</mi><mi>n</mi></mrow><annotation encoding="application/x-tex">\varDelta_pdown</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.980548em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathit">Δ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.15139200000000003em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">p</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span><span class="mord mathnormal">d</span><span class="mord mathnormal">o</span><span class="mord mathnormal" style="margin-right:0.02691em;">w</span><span class="mord mathnormal">n</span></span></span></span></span><span>﻿</span></span>: 하락 가격 변화</li></ul></li></ul><ul id="45bb62ec-1402-49be-8bbe-88e3433feef4" class="bulleted-list"><li style="list-style-type:disc">보통 14일의 과거 매매일 수에 대한 평균 가격 변화를 사용</li></ul><ul id="b2c18d43-c9ee-4ec6-8d8d-7e710e5a94b6" class="bulleted-list"><li style="list-style-type:disc">ex. 과매수(RSI 70이상), 과매도(RSI 30이하)</li></ul><ul id="6933b04f-2ea0-4636-a001-16c606e0dce4" class="bulleted-list"><li style="list-style-type:disc">가격 모멘텀: 주어진 과거 거래일수에 대한 총 수익률을 계산<ul id="14d28538-8abb-44d1-a4d6-06e106127d5b" class="bulleted-list"><li style="list-style-type:circle">가장 최근 1달을 제외한 과거 12개월을 사용</li></ul></li></ul><ul id="b46c106a-9748-4c55-9887-11ee14b4eac4" class="bulleted-list"><li style="list-style-type:disc">변동성 조정 12개월 가격 모멘텀<ul id="255726c3-fc4c-4075-8c6b-0b27425116e8" class="bulleted-list"><li style="list-style-type:circle">과거 12개월의 수익률을 표준 편차로 나눔으로써 정규화</li></ul></li></ul><ul id="8602c709-9862-4927-9119-3ad0c16265b6" class="bulleted-list"><li style="list-style-type:disc">가격 가속도<ul id="8982b2e3-a324-4fa6-b056-888af7b1ca15" class="bulleted-list"><li style="list-style-type:circle">장기(1년)/단기(1분기)에 대한 일일 가격에 대한 선형 회귀식으로 추세의 기울기를 계산</li></ul><ul id="f52c04ee-8bca-436f-8825-866ba53612a1" class="bulleted-list"><li style="list-style-type:circle">기울기의 변화를 가격 가속도로 간주</li></ul></li></ul><ul id="9b5470d8-c698-49ad-8335-b6b4ff9c9c9b" class="bulleted-list"><li style="list-style-type:disc">52주 최고가 대비 변화율: 과거 52주 동안 가장 최근 가격과 높은 가격 간의 % 차이</li></ul><h3 id="4cb36a89-4ef2-4bc6-b2a4-d801b2cfa257" class="">✔️ 심리 지표</h3><ul id="ba146ca3-bff3-4ca4-84ae-02afd967baf7" class="bulleted-list"><li style="list-style-type:disc">이익 추정 수</li></ul><ul id="af51f892-7fa0-422d-88bb-1c7d52dc3ffd" class="bulleted-list"><li style="list-style-type:disc">N개월간 종목 추천의 변화: 컨센서스 추천의 변화를 탐지</li></ul><ul id="992dea87-39c9-4f65-88ad-518e10387600" class="bulleted-list"><li style="list-style-type:disc">12개월 발생 주식 수의 변화: 음의 변화일 경우, 자사주 매입을 의미</li></ul><ul id="e1d86eab-60fe-4734-bbba-3f21808288c1" class="bulleted-list"><li style="list-style-type:disc">6개월간 목표 주가의 변화</li></ul><ul id="ab281465-a34e-4ca0-80fa-8c43cfaef951" class="bulleted-list"><li style="list-style-type:disc">순이익의 조정: 이익 추정치에 대한 (상향 조정 - 하향 조정) / 총 조정 수</li></ul><ul id="a0fdb5df-97ea-4494-848c-a50b6281eda6" class="bulleted-list"><li style="list-style-type:disc">발행 주식 대비 대차 잔고 비율</li></ul><h2 id="c30477b7-6ea0-4126-9828-933a4364de90" class="">✅ 가치 전략</h2><h3 id="ada654f1-5281-46bf-b768-88961f259ed8" class="">✔️ 가치 팩터</h3><ul id="c1f43358-d34c-4800-985c-301150f7ee71" class="bulleted-list"><li style="list-style-type:disc">상대적으로 저렴한 과소평가된 자산을 매수하는 신호를 제공하고, 과대평가된 자산에 대한 매도 신호를 제공</li></ul><ul id="d52d204a-8ac3-42ec-a337-68819790d9f7" class="bulleted-list"><li style="list-style-type:disc">자산의 공정 or 기본 가치를 추정하는 모델이 있음<ul id="1cdbc9c0-5973-4f3c-a600-2072598d8430" class="bulleted-list"><li style="list-style-type:circle">공정 가치: 다른 자산과의 상대적인 스프레드, 자산이 거래되어야 하는 가격의 범위</li></ul><ul id="2f03f4f6-a3ba-4e8b-9189-5c435ddc32ea" class="bulleted-list"><li style="list-style-type:circle">스프레드: 비교 가능한 두 항목에서 가격이나 금리, 수익률의 차이</li></ul></li></ul><h3 id="a1381cdb-644a-40ba-b9a0-5bd8a1f18350" class="">✔️ 가치 전략</h3><ul id="7b53bd85-d437-421b-a636-9120a39c3dc7" class="bulleted-list"><li style="list-style-type:disc">상대적 가치 전략 (= 통계적 차익 거래)<ul id="33a397c8-453c-4dab-a085-f753864c2ad6" class="bulleted-list"><li style="list-style-type:circle">자산의 공정 가치에 대한 가격의 평균 회귀에 의존</li></ul><ul id="9b6db46f-8f47-4740-b22b-b3a6cc155009" class="bulleted-list"><li style="list-style-type:circle">가치주는 종종 평균 회귀에 의존하므로 모멘텀 팩터의 속성과는 반대</li></ul><ul id="503099be-7336-4a26-b9b5-5c427daf383b" class="bulleted-list"><li style="list-style-type:circle">가격은 행동 경제적 효과(과대반응, 허딩) 또는 유동성 효과에 의해 공정 가치로부터 일시적으로 벗어날 수 있다고 가정<ul id="7b3e7bb3-fc69-4ec5-b60c-bb69072a384b" class="bulleted-list"><li style="list-style-type:square">허딩: 객관적인 분석이나 원칙 없이 다수가 하는 행동을 따라 하는 것을 의미 (= 군중심리)</li></ul></li></ul><ul id="c85b20a4-e5c6-43b1-a022-93944c9dd622" class="bulleted-list"><li style="list-style-type:circle">시장 중립적 롱/숏 포트폴리오로 구현됨</li></ul></li></ul><ul id="ed06f981-21d6-436e-8317-d8af6b20e70f" class="bulleted-list"><li style="list-style-type:disc">기본적 가치 전략<ul id="c42ce5b7-29b0-4682-a82a-6f209f66e0f5" class="bulleted-list"><li style="list-style-type:circle">목표 자산군에 따라 관련된 경제/기본 지표들로부터 공정 자산 가치를 도출</li></ul><ul id="585fe096-159d-4972-8e05-85b2166277a0" class="bulleted-list"><li style="list-style-type:circle">자산군별 예시<ul id="f73b1bb0-6a36-4ca8-b6d3-f0b16929258b" class="bulleted-list"><li style="list-style-type:square">채권, 통화, 상품: 자본 수지의 수준과 변화, 인플레이션, 자금 흐름</li></ul><ul id="c6700d17-4cc5-4b3d-bce8-80bfc121d5e5" class="bulleted-list"><li style="list-style-type:square">주식, 기업 신용: 장부 가치, 탑라인 매출, 바텀라인 이익, 현금 흐름</li></ul></li></ul></li></ul><ul id="be74ac6a-51bc-4bad-996f-1ed6dde8c755" class="bulleted-list"><li style="list-style-type:disc">시장 가치 전략<ul id="f07db18c-af78-469c-9550-9b396e59361e" class="bulleted-list"><li style="list-style-type:circle">통계적 모델이나 ML을 활용해 유동성 공급의 비효율성으로 왜곡된 가격을 찾는 것</li></ul><ul id="7ca8e6aa-dc11-4b83-ac6b-ac175e256143" class="bulleted-list"><li style="list-style-type:circle">시장 가치 트레이드 종류<ul id="9e260cd5-a5d2-4f3f-9774-849497661192" class="bulleted-list"><li style="list-style-type:square">단기적: 일시적인 시장 충격의 반전을 찾는 것 (ex. 통계적 및 인덱스 차익 거래)</li></ul><ul id="6a089d9d-2b89-4112-b18e-acfeb36d6770" class="bulleted-list"><li style="list-style-type:square">장기적: 계절적 효과를 이용</li></ul></li></ul></li></ul><ul id="aeac8a0f-1960-451c-8b04-f6b176b0707e" class="bulleted-list"><li style="list-style-type:disc">자산 간 상대 가치 전략<ul id="eb82cb3a-5941-41c3-9e43-4eca5f06ff86" class="bulleted-list"><li style="list-style-type:circle">자산군별 상대적 가격 왜곡에 초점</li></ul><ul id="4f6b70e6-3f68-4afe-aa99-2bc06d3d0c7c" class="bulleted-list"><li style="list-style-type:circle">신용 신호를 이용하여 주식을 거래하는 것을 포함</li></ul></li></ul><h3 id="e827eac1-a5f8-47ed-8923-11fd2dd05d73" class="">✔️ 가치 효과</h3><ul id="8676664c-9e2e-407c-91ab-4df6658529a8" class="bulleted-list"><li style="list-style-type:disc">가치 효과: 가치주 대비 성장주 포트폴리오의 초과 수익률<ul id="5f4b5618-55a2-420a-9455-9b8628d5d053" class="bulleted-list"><li style="list-style-type:circle">성장주 포트폴리오는 기본적 가치에 비해 낮은 시장 가치를 가짐</li></ul><ul id="3efcb3a3-1d9c-4f62-9813-7b6c2e0a6be1" class="bulleted-list"><li style="list-style-type:circle">가치주 포트폴리오는 기본적 가치에 비해 높은 시장 가치를 가짐</li></ul></li></ul><ul id="53c3b3df-8b70-463e-88a8-8c177f7f84af" class="bulleted-list"><li style="list-style-type:disc">합리성 기반 설명<ul id="b12790fd-27f0-4f95-9c53-ab1fe6c50477" class="bulleted-list"><li style="list-style-type:circle">가치 프리미엄은 더 높은 리스크를 보상</li></ul><ul id="34785018-1828-4e7b-927b-42775bfe977d" class="bulleted-list"><li style="list-style-type:circle">가치주와 소형주 포트폴리오는 성장주와 대형주보다 거시 경제 충격에 더 민감함</li></ul></li></ul><ul id="b02bb982-915d-4df7-8180-4b0bd3c2f683" class="bulleted-list"><li style="list-style-type:disc">행동 경제 기반 설명<ul id="d37f15e2-4583-42b1-b3c8-51687314c6c9" class="bulleted-list"><li style="list-style-type:circle">손실 회피: 과거 이익으로 인한 쿠션으로 최근 좋은 성과를 보인 자산의 손실에 덜 민감</li></ul><ul id="9d17a444-b659-4b3c-a31e-ae6a63f1a667" class="bulleted-list"><li style="list-style-type:circle">멘탈 회계 편향: 높은 가격 배수를 가진 성장주는 과거에 성과가 더 좋았지만, 투자자들은 낮은 리스크로 인식하는 편향을 가지므로 낮은 평균 수익률을 요구함 (가치주는 반대)</li></ul></li></ul><ul id="359b4787-491f-43c7-b2a0-e105e10037a9" class="bulleted-list"><li style="list-style-type:disc">포착 방법<ul id="388838d1-5b57-4ba6-bb4c-5fb2c2730ab0" class="bulleted-list"><li style="list-style-type:circle">현금 흐름 수익률: <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mtext>주당영업현금흐름</mtext><mtext>주가</mtext></mfrac></mrow><annotation encoding="application/x-tex">주당 영업 현금 흐름 \over 주가</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.217331em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.872331em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord hangul_fallback mtight">주가</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord hangul_fallback mtight">주당영업현금흐름</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span><span>﻿</span></span></li></ul><ul id="02f45d82-2cc7-4979-8f8b-b553f2b07a2f" class="bulleted-list"><li style="list-style-type:circle">잉여 현금 흐름 수익률: <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mtext>주당잉여현금흐름</mtext><mtext>주가</mtext></mfrac></mrow><annotation encoding="application/x-tex">주당 잉여 현금 흐름 \over 주가</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.217331em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.872331em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord hangul_fallback mtight">주가</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord hangul_fallback mtight">주당잉여현금흐름</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span><span>﻿</span></span><ul id="bf4a300a-1d31-42d8-8225-6648e2aa0c1c" class="bulleted-list"><li style="list-style-type:square">잉여 현금 흐름: 필요한 비용과 투자 이후 배당이 가능한 현금 금액</li></ul></li></ul><ul id="2983b02e-c033-4704-b1cf-1953575c5cd7" class="bulleted-list"><li style="list-style-type:circle">투하 자본에 대한 현금 흐름 수익률 (CFROIC): <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mtext>영업현금흐름</mtext><mrow><mtext>투하자본</mtext><mo stretchy="false">(</mo><mtext>총부채</mtext><mo>+</mo><mtext>순자산</mtext><mo stretchy="false">)</mo></mrow></mfrac></mrow><annotation encoding="application/x-tex">영업 현금 흐름 \over 투하 자본 (총 부채 + 순 자산)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.392331em;vertical-align:-0.52em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.872331em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord hangul_fallback mtight">투하자본</span><span class="mopen mtight">(</span><span class="mord hangul_fallback mtight">총부채</span><span class="mbin mtight">+</span><span class="mord hangul_fallback mtight">순자산</span><span class="mclose mtight">)</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord hangul_fallback mtight">영업현금흐름</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.52em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span><span>﻿</span></span><ul id="5a5d4fa6-c83b-4364-923d-edaa15a42e9b" class="bulleted-list"><li style="list-style-type:square">기업의 현금 흐름 수익성을 측정</li></ul></li></ul><ul id="ae491621-9816-4068-bd77-16419a6a5225" class="bulleted-list"><li style="list-style-type:circle">총 자산 대비 현금 흐름: <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mtext>영업현금흐름</mtext><mtext>총자산</mtext></mfrac></mrow><annotation encoding="application/x-tex">영업 현금 흐름 \over 총 자산</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.217331em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.872331em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord hangul_fallback mtight">총자산</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord hangul_fallback mtight">영업현금흐름</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span><span>﻿</span></span></li></ul><ul id="4fa34c97-9f05-45fa-ab94-681063afb851" class="bulleted-list"><li style="list-style-type:circle">기업 가치 대비 현금 흐름: <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mrow><mtext>기업가치</mtext><mo stretchy="false">(</mo><mtext>주식</mtext><mo>+</mo><mtext>부채</mtext><mo stretchy="false">)</mo></mrow><mtext>잉여현금흐름</mtext></mfrac></mrow><annotation encoding="application/x-tex">기업 가치(주식 + 부채) \over 잉여 현금 흐름</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.355em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.01em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord hangul_fallback mtight">잉여현금흐름</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.485em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord hangul_fallback mtight">기업가치</span><span class="mopen mtight">(</span><span class="mord hangul_fallback mtight">주식</span><span class="mbin mtight">+</span><span class="mord hangul_fallback mtight">부채</span><span class="mclose mtight">)</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span><span>﻿</span></span></li></ul><ul id="1529c730-32a2-4919-8bd9-1a1afdeaf6ff" class="bulleted-list"><li style="list-style-type:circle">기업 가치 대비 EBITDA: <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mtext>기업가치</mtext><mrow><mi>E</mi><mi>B</mi><mi>I</mi><mi>T</mi><mi>D</mi><mi>A</mi></mrow></mfrac></mrow><annotation encoding="application/x-tex">기업가치 \over EBITDA</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.217331em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.872331em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.05017em;">EB</span><span class="mord mathnormal mtight" style="margin-right:0.07847em;">I</span><span class="mord mathnormal mtight" style="margin-right:0.13889em;">T</span><span class="mord mathnormal mtight" style="margin-right:0.02778em;">D</span><span class="mord mathnormal mtight">A</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord hangul_fallback mtight">기업가치</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span><span>﻿</span></span></li></ul><ul id="7f8091da-df57-46a6-bb6b-0e5cb734190a" class="bulleted-list"><li style="list-style-type:circle">이익 수익률 (최근 1년): <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mtext>최근시장가</mtext><mrow><mtext>과거</mtext><mtext>  </mtext><mn>12</mn><mtext>개월</mtext><mtext>  </mtext><mtext>총이익</mtext></mrow></mfrac></mrow><annotation encoding="application/x-tex">최근 시장가 \over 과거\;12개월\;총이익</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.217331em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.872331em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord hangul_fallback mtight">과거</span><span class="mspace mtight" style="margin-right:0.3252777777777778em;"></span><span class="mord mtight">12</span><span class="mord hangul_fallback mtight">개월</span><span class="mspace mtight" style="margin-right:0.3252777777777778em;"></span><span class="mord hangul_fallback mtight">총이익</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord hangul_fallback mtight">최근시장가</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span><span>﻿</span></span></li></ul><ul id="d9a5aa07-fc34-4aa8-9a11-2b627b08cfa6" class="bulleted-list"><li style="list-style-type:circle">이익 수익률 (미래 1년): <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mtext>최근시장가</mtext><mrow><mtext>미래</mtext><mtext>  </mtext><mn>12</mn><mtext>개월</mtext><mtext>  </mtext><mtext>컨센서스</mtext><mtext>  </mtext><mtext>이익</mtext><mtext>  </mtext><mtext>추정치</mtext></mrow></mfrac></mrow><annotation encoding="application/x-tex">최근 시장가 \over 미래\;12개월\;컨센서스\;이익\;추정치</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.217331em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.872331em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord hangul_fallback mtight">미래</span><span class="mspace mtight" style="margin-right:0.3252777777777778em;"></span><span class="mord mtight">12</span><span class="mord hangul_fallback mtight">개월</span><span class="mspace mtight" style="margin-right:0.3252777777777778em;"></span><span class="mord hangul_fallback mtight">컨센서스</span><span class="mspace mtight" style="margin-right:0.3252777777777778em;"></span><span class="mord hangul_fallback mtight">이익</span><span class="mspace mtight" style="margin-right:0.3252777777777778em;"></span><span class="mord hangul_fallback mtight">추정치</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord hangul_fallback mtight">최근시장가</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span><span>﻿</span></span></li></ul><ul id="227fc7c2-4bd9-4020-93cc-02fb7cae71d0" class="bulleted-list"><li style="list-style-type:circle">PEG 비율: <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mrow><mtext>가격</mtext><mtext>  </mtext><mtext>이익</mtext><mtext>  </mtext><mtext>비율</mtext></mrow><mrow><mtext>기간의</mtext><mtext>  </mtext><mtext>이익</mtext><mtext>  </mtext><mtext>성장률</mtext></mrow></mfrac></mrow><annotation encoding="application/x-tex">가격\;이익\;비율\over 기간의\;이익\;성장률</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.217331em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.872331em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord hangul_fallback mtight">기간의</span><span class="mspace mtight" style="margin-right:0.3252777777777778em;"></span><span class="mord hangul_fallback mtight">이익</span><span class="mspace mtight" style="margin-right:0.3252777777777778em;"></span><span class="mord hangul_fallback mtight">성장률</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord hangul_fallback mtight">가격</span><span class="mspace mtight" style="margin-right:0.3252777777777778em;"></span><span class="mord hangul_fallback mtight">이익</span><span class="mspace mtight" style="margin-right:0.3252777777777778em;"></span><span class="mord hangul_fallback mtight">비율</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span><span>﻿</span></span></li></ul><ul id="23f48612-caab-489a-8531-be1f5f572c05" class="bulleted-list"><li style="list-style-type:circle">색터 대비 P/E (1년 미래)</li></ul><ul id="c186d1f2-341a-4e28-88e9-5de1483c5456" class="bulleted-list"><li style="list-style-type:circle">매출 수익률</li></ul><ul id="86c29d0d-decb-4322-94c5-96be7c584b5e" class="bulleted-list"><li style="list-style-type:circle">매출 수익률 (FY1)</li></ul><ul id="e92f6d8c-ff92-43b9-ad77-50841fa92f0a" class="bulleted-list"><li style="list-style-type:circle">장부 가치 수익률: <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mrow><mtext>과거</mtext><mtext>  </mtext><mtext>장부</mtext><mtext>  </mtext><mtext>가치</mtext></mrow><mtext>주가</mtext></mfrac></mrow><annotation encoding="application/x-tex">과거\;장부\;가치\over 주가</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.217331em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.872331em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord hangul_fallback mtight">주가</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord hangul_fallback mtight">과거</span><span class="mspace mtight" style="margin-right:0.3252777777777778em;"></span><span class="mord hangul_fallback mtight">장부</span><span class="mspace mtight" style="margin-right:0.3252777777777778em;"></span><span class="mord hangul_fallback mtight">가치</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span><span>﻿</span></span></li></ul><ul id="97ec9355-48cf-498c-bb11-7fcd4014a846" class="bulleted-list"><li style="list-style-type:circle">배당 수익률</li></ul></li></ul><p id="c4f90dda-dd27-4f48-b5ca-fc6bc6a8fb17" class="">
+</p><h2 id="ea14cc87-c5a8-4d05-a75b-964c9be7df95" class="">✅ 변동성, 규모 이례 현상</h2><ul id="3c8d66b9-e500-4ef1-876c-644bde86257f" class="bulleted-list"><li style="list-style-type:disc">규모 효과: 낮은 시가 총액 주식의 초과성과 관련</li></ul><ul id="6b24c2ff-c303-4f63-adb4-a1700108971e" class="bulleted-list"><li style="list-style-type:disc">저변동성 팩터: 평균 이하의 변동성, 베타 또는 특이 리스크로 주식의 초과 수익률을 포착</li></ul><ul id="6fc88488-de77-46a1-a426-f318b90d6180" class="bulleted-list"><li style="list-style-type:disc">저변동성 이례 현상: 많은 시장에서 상당 기간에 걸쳐 리스크가 낮은 자산들이 높은 자산보다 성과가 좋은 반대 현상이 관찰됨<ul id="dff9bd2a-432f-4852-8aa2-4961fca876e8" class="bulleted-list"><li style="list-style-type:circle">효율적 시장 가설, CAPM 가정과 배치됨</li></ul></li></ul><h3 id="014825d3-2147-48f3-a0a1-c6d149ddc5a2" class="">✔️ 저변동성 이례 현상의 행동 경제학적 설명</h3><ul id="0651eb9b-66a7-4302-9932-8c274510ab66" class="bulleted-list"><li style="list-style-type:disc">복권 효과<ul id="7e96eebf-7ec4-4a04-98ab-2fd73a90149b" class="bulleted-list"><li style="list-style-type:circle">개인들이 복권과 유사한 베팅을 취한다는 경험적 증거에 근거</li></ul><ul id="1c38b233-9392-4ccc-b497-43d0c10e1a43" class="bulleted-list"><li style="list-style-type:circle">높은 변동성을 가진 주식에 대해 높은 가격을 지불, 낮은 변동성을 가진 주식에 대해 낮은 가격을 지불</li></ul></li></ul><ul id="5cde60f0-1bfd-4b7e-9e70-dcba4919ac06" class="bulleted-list"><li style="list-style-type:disc">대표 편향<ul id="8dc0314e-8fc3-4e0f-9d6f-ac160a58fc5b" class="bulleted-list"><li style="list-style-type:circle">투자자들이 유명한 변동성 높은 주식의 성공을 모든 변동성 높은 주식에 외삽하고 투기적 특성을 무시하는 것</li></ul></li></ul><ul id="a8623e4f-e4cc-4078-83c3-f6f0367b3c0a" class="bulleted-list"><li style="list-style-type:disc">투자자들은 미래를 예측하는 능력에 자만함</li></ul><ul id="e9579bfc-f3b8-4b64-b5d5-67f21f68cf38" class="bulleted-list"><li style="list-style-type:disc">시장의 낙천주의자들의 수는 비관주의자들의 수를 쉽게 초과함 → 변동성이 높은 주식의 가격을 상승시키고 수익률을 저하시킴</li></ul><ul id="8ab0e0c3-bd40-4ee9-8e7a-fa77edcbc3af" class="bulleted-list"><li style="list-style-type:disc">투자자들은 호황기와 위기 시에 다르게 행동함 → 저변동성 자산 포트폴리오는 장기적으로 고변동성 자산 대비 좋은 성과를 보임</li></ul><h3 id="9c127a6e-256d-4f09-85d3-74c8af06b753" class="">✔️ 우량주 팩터</h3><ul id="e76b107a-6668-4e5e-9e3d-201deca71493" class="bulleted-list"><li style="list-style-type:disc">시장 대비 우량한 기업에 대한 초과 수익을 포착하는 것을 목적</li></ul><ul id="5e2aae69-4619-4c8b-acae-7a56da6454df" class="bulleted-list"><li style="list-style-type:disc">우량하다: 높은 수익성, 운영 효율성, 안정성, 좋은 지배 구조 등</li></ul><ul id="a37836ff-1ca0-4ba9-bc27-b61d8dee32c7" class="bulleted-list"><li style="list-style-type:disc">개별적으로 사용하면 경기와 반대의 성과를 보임<ul id="3b17da9e-4d31-4757-9644-d0b93eb8010f" class="bulleted-list"><li style="list-style-type:circle">투자자가 하방 리스크를 최소화하려고 프리미엄을 지불하면서 가치를 올리기 때문</li></ul><ul id="0293cdf1-1f61-4c32-b0cc-e10fe0989318" class="bulleted-list"><li style="list-style-type:circle">다른 리스크 팩터 (가치팩터)와 결합하여 투자 전략의 질을 높일 수 있음</li></ul></li></ul><ul id="0b8e0bd3-a150-43f8-b21e-1fd115830342" class="bulleted-list"><li style="list-style-type:disc">허딩의 논리로 리스크를 감소할 수 있음<ul id="5b607f29-4d17-4455-b102-acf213daba89" class="bulleted-list"><li style="list-style-type:circle">기업의 질에 대한 정보를 과소 반응, 승자주를 찾고 패자주를 매도하는 행동 경제학적 이유</li></ul></li></ul><ul id="7ca401c6-bf1e-44e5-aef5-464183625f28" class="bulleted-list"><li style="list-style-type:disc">척도<ul id="11090185-5f2c-4e4e-93f5-1d4ea00e6da1" class="bulleted-list"><li style="list-style-type:circle">자산 회전율: <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mtext>매출</mtext><mrow><mtext>총</mtext><mtext>  </mtext><mtext>자산</mtext></mrow></mfrac></mrow><annotation encoding="application/x-tex">매출 \over 총\;자산</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.217331em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.872331em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord hangul_fallback mtight">총</span><span class="mspace mtight" style="margin-right:0.3252777777777778em;"></span><span class="mord hangul_fallback mtight">자산</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord hangul_fallback mtight">매출</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span><span>﻿</span></span></li></ul><ul id="f01069b3-c495-499f-856d-829e521d109f" class="bulleted-list"><li style="list-style-type:circle">자산 회전율의 12개월간 변화</li></ul><ul id="999dcf2d-2079-49ea-9984-d10d30f95d0c" class="bulleted-list"><li style="list-style-type:circle">유동 비율: <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mrow><mtext>유동</mtext><mtext>  </mtext><mtext>자산</mtext></mrow><mrow><mtext>유동</mtext><mtext>  </mtext><mtext>부채</mtext></mrow></mfrac></mrow><annotation encoding="application/x-tex">유동\;자산\over 유동\;부채</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.217331em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.872331em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord hangul_fallback mtight">유동</span><span class="mspace mtight" style="margin-right:0.3252777777777778em;"></span><span class="mord hangul_fallback mtight">부채</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord hangul_fallback mtight">유동</span><span class="mspace mtight" style="margin-right:0.3252777777777778em;"></span><span class="mord hangul_fallback mtight">자산</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span><span>﻿</span></span></li></ul><ul id="5d03848b-d530-4c1b-9440-027b35c01d25" class="bulleted-list"><li style="list-style-type:circle">이자 보상 비율: <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mrow><mi>E</mi><mi>B</mi><mi>I</mi><mi>T</mi><mo stretchy="false">(</mo><mtext>세전</mtext><mtext>  </mtext><mtext>이익</mtext><mo stretchy="false">)</mo></mrow><mrow><mtext>이자</mtext><mtext>  </mtext><mtext>비용</mtext></mrow></mfrac></mrow><annotation encoding="application/x-tex">EBIT(세전\;이익) \over 이자\;비용</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.355em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.01em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord hangul_fallback mtight">이자</span><span class="mspace mtight" style="margin-right:0.3252777777777778em;"></span><span class="mord hangul_fallback mtight">비용</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.485em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.05017em;">EB</span><span class="mord mathnormal mtight" style="margin-right:0.07847em;">I</span><span class="mord mathnormal mtight" style="margin-right:0.13889em;">T</span><span class="mopen mtight">(</span><span class="mord hangul_fallback mtight">세전</span><span class="mspace mtight" style="margin-right:0.3252777777777778em;"></span><span class="mord hangul_fallback mtight">이익</span><span class="mclose mtight">)</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span><span>﻿</span></span></li></ul><ul id="9713aeec-e424-44c9-96e8-95208d857637" class="bulleted-list"><li style="list-style-type:circle">레버리지: <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mtext>부채</mtext><mrow><mtext>자기</mtext><mtext>  </mtext><mtext>자본</mtext></mrow></mfrac></mrow><annotation encoding="application/x-tex">부채 \over 자기\;자본</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.217331em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.872331em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord hangul_fallback mtight">자기</span><span class="mspace mtight" style="margin-right:0.3252777777777778em;"></span><span class="mord hangul_fallback mtight">자본</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord hangul_fallback mtight">부채</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span><span>﻿</span></span></li></ul><ul id="efb080fc-1afc-4679-8b5e-4abafe421afd" class="bulleted-list"><li style="list-style-type:circle">배당 성향: <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mrow><mtext>주당</mtext><mtext>  </mtext><mtext>배당금</mtext></mrow><mrow><mtext>주당</mtext><mtext>  </mtext><mtext>순이익</mtext></mrow></mfrac></mrow><annotation encoding="application/x-tex">주당\;배당금\over 주당\;순이익</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.217331em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.872331em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord hangul_fallback mtight">주당</span><span class="mspace mtight" style="margin-right:0.3252777777777778em;"></span><span class="mord hangul_fallback mtight">순이익</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord hangul_fallback mtight">주당</span><span class="mspace mtight" style="margin-right:0.3252777777777778em;"></span><span class="mord hangul_fallback mtight">배당금</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span><span>﻿</span></span></li></ul><ul id="9e4e6f36-b2cb-4186-8be4-1851386edcfc" class="bulleted-list"><li style="list-style-type:circle">자기 자본 이익률: <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.2/katex.min.css')</style><span data-token-index="0" contenteditable="false" class="notion-text-equation-token" style="user-select:all;-webkit-user-select:all;-moz-user-select:all"><span></span><span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mtext>순이익</mtext><mrow><mtext>자기</mtext><mtext>  </mtext><mtext>자본</mtext></mrow></mfrac></mrow><annotation encoding="application/x-tex">순이익\over 자기\;자본</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.217331em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.872331em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord hangul_fallback mtight">자기</span><span class="mspace mtight" style="margin-right:0.3252777777777778em;"></span><span class="mord hangul_fallback mtight">자본</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord hangul_fallback mtight">순이익</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span><span>﻿</span></span></li></ul></li></ul><h2 id="d2ec411b-c59a-4e4e-93d6-e7e3cd0e6825" class="">✅ 기술적 알파 팩터</h2><h3 id="abb1eb4d-1081-4c65-a777-e0dc89ee02af" class="">✔️ 파마-프렌치</h3><ul id="13783bbd-fe71-4d18-8fde-b6d6d1465168" class="bulleted-list"><li style="list-style-type:disc">파마-프렌치 5가지 팩터: 시장 리스크, 규모, 가치, 영업 수익성, 투자<ul id="1aec1e0c-1670-4f89-896d-8422335e3720" class="bulleted-list"><li style="list-style-type:circle">포트폴리오의 리스크(pandas-datareader)와 수익률의 노출도(pyfinance)를 평가하는데 사용</li></ul></li></ul><h3 id="11153313-864b-42ee-a180-d3b0769af72e" class="">✔️ 볼린저 밴드</h3><ul id="794a61c4-9bba-4687-96fa-c8b1eac783d0" class="bulleted-list"><li style="list-style-type:disc">SMA(단순 이동 평균) 위아래로 롤링 2 표준 편차 밴드에 의해 둘러싸인 SMA로 구성됨</li></ul><ul id="6ddefb54-4b4b-4ef1-9792-f394d9ef32d6" class="bulleted-list"><li style="list-style-type:disc">가격이 상/하단의 두 밴드 바깥으로 벗어날 때 잠재적 과매수/과매도 조건의 시각화를 위해 도입됨</li></ul><ul id="4d3944b6-4b0c-4072-82c5-1d45880e7b31" class="bulleted-list"><li style="list-style-type:disc">TA-Lib library</li></ul><h3 id="6fcb3951-ce6a-4e60-8f70-ecf06832753a" class="">✔️ 칼만 필터</h3><ul id="8e1a02d2-bb35-4dc0-8b40-8845501660ba" class="bulleted-list"><li style="list-style-type:disc">noise 제거에 활용</li></ul><ul id="796bab40-887f-43ed-8456-3b753880e3e0" class="bulleted-list"><li style="list-style-type:disc">순차적 데이터에 대한 동적 선형 모델로 새로운 데이터를 시계열의 현재값 추정에 반영함</li></ul><ul id="ec7de53e-6f8e-49f3-ae7e-86cdc6d4f5a0" class="bulleted-list"><li style="list-style-type:disc">관측치 z가 주어졌을 때, 은닉 상태 변수 x의 사후 분포를 추정하는 베이지안 접근법을 따름<figure id="035cdbfe-0a31-4d46-9719-e3f3faa86038" class="image"><a href="(%E1%84%87%E1%85%A1%E1%86%AF%E1%84%91%E1%85%AD)%204%20%E1%84%8B%E1%85%A1%E1%86%AF%E1%84%91%E1%85%A1%20%E1%84%91%E1%85%A2%E1%86%A8%E1%84%90%E1%85%A5%20%E1%84%85%E1%85%B5%E1%84%89%E1%85%A5%E1%84%8E%E1%85%B5%205e4e5d281adb4a88a23c6f5c35918592/Untitled.png"><img style="width:1560px" src="(%E1%84%87%E1%85%A1%E1%86%AF%E1%84%91%E1%85%AD)%204%20%E1%84%8B%E1%85%A1%E1%86%AF%E1%84%91%E1%85%A1%20%E1%84%91%E1%85%A2%E1%86%A8%E1%84%90%E1%85%A5%20%E1%84%85%E1%85%B5%E1%84%89%E1%85%A5%E1%84%8E%E1%85%B5%205e4e5d281adb4a88a23c6f5c35918592/Untitled.png"/></a></figure></li></ul><ul id="26070520-186e-460b-9037-47586bbedc44" class="bulleted-list"><li style="list-style-type:disc">알고리즘의 기본적인 아이디어<ul id="d3ebc77d-b4f7-4377-a5b7-b72fc05bce09" class="bulleted-list"><li style="list-style-type:circle">예측 스텝과 측정 스텝을 반복</li></ul><ul id="f92d5359-0f11-419a-9ac4-f6b7736a7535" class="bulleted-list"><li style="list-style-type:circle">예측 스텝: 관측치로 현재 상태를 추정</li></ul><ul id="af553c03-2523-42e6-974a-7899371e70b4" class="bulleted-list"><li style="list-style-type:circle">측정 스텝: noise가 섞인 관측치를 기반으로 더 확실한 추정치에 높은 가중치를 부여하여 추정치를 업데이트<ul id="c3752820-8374-4995-ab93-2bf29d62a3ba" class="bulleted-list"><li style="list-style-type:square">시간에 따라 변하는 값이나 모델 파라미터의 추정에 유용</li></ul></li></ul></li></ul><ul id="8e7cb8cb-38e5-4a5c-8bf8-c0c76ac23012" class="bulleted-list"><li style="list-style-type:disc">가정<ul id="67ca8384-ef21-448a-952a-38fe845ba3da" class="bulleted-list"><li style="list-style-type:circle">모델링하는 시스템은 선형 방식으로 작동</li></ul><ul id="29b42c89-ad09-41e7-8094-64694cba3f32" class="bulleted-list"><li style="list-style-type:circle">은닉 상태 프로세스는 마르코프 체인 (이전 시점의 은닉상태만 의존)</li></ul><ul id="32175db4-ee72-4c57-b4f4-8ef7f811d22f" class="bulleted-list"><li style="list-style-type:circle">측정은 고정 공분산의 가우시안, 비상관 잡음에 제약됨</li></ul></li></ul><ul id="f17095a8-46d0-4085-9112-6b930dd65284" class="bulleted-list"><li style="list-style-type:disc">은닉 변수의 공간이 연속, 은닉/관측 변수 모두 정규분포를 가지는 점을 제외하고는 HMM과 유사함</li></ul><ul id="0bae68c1-0dd5-415d-90e0-27ba6732b916" class="bulleted-list"><li style="list-style-type:disc">장단점<ul id="254fd1da-be80-45f7-9511-821d1e016fa6" class="bulleted-list"><li style="list-style-type:circle">장점: 가변적인 분포 속성을 가진 비정상성 데이터를 유연하게 적응</li></ul><ul id="8dcc4f97-94c0-4140-b337-14a3f8bd5aa0" class="bulleted-list"><li style="list-style-type:circle">단점: 금융 데이터가 종종 위배하는 선형성과 가우시안 잡음 가정
+→ extended, unscented 칼만 필터의 형태로 비선형 동학을 가진 시스템으로 확장됨<ul id="fdc93fbe-05a5-46fb-a9ed-aa011e01d901" class="bulleted-list"><li style="list-style-type:square">비선형 동학: 선형의 반대 즉 기존의 경로가 아닌 들쑥날쑥한 혼돈상태에서 변해 간다는 의미</li></ul></li></ul></li></ul><ul id="db61021c-c59c-46b5-9323-ceee35380d7e" class="bulleted-list"><li style="list-style-type:disc">pykalman library<ul id="179568c8-9143-4b69-b4eb-8d202bdc29bb" class="bulleted-list"><li style="list-style-type:circle">파라미터<ul id="42c7743c-139a-4034-ac64-0e726c405bef" class="bulleted-list"><li style="list-style-type:square">초기 상태<ul id="946a3691-48cb-4d84-ad07-eb83dfff3dc4" class="bulleted-list"><li style="list-style-type:disc">initial_state_mean: 초기 은닉상태 평균</li></ul><ul id="f4c24773-0994-4360-81c7-a74313fcbc85" class="bulleted-list"><li style="list-style-type:disc">initial_state_covariance: 초기 은닉상태 공분산</li></ul></li></ul><ul id="ed9fcfa3-656e-44b8-9ef8-2a34fe8d2880" class="bulleted-list"><li style="list-style-type:square">은닉 상태<ul id="aec16b4e-5356-4ebc-9703-ffa600e7ee2d" class="bulleted-list"><li style="list-style-type:disc">transition_covariance: 전이공분산</li></ul><ul id="1b23d6c3-5ead-4386-ba8d-2a9d1649e9e1" class="bulleted-list"><li style="list-style-type:disc">transition_offset: 전이편향</li></ul><ul id="3bd6e2cf-d6b2-454d-8e9f-06a0da587910" class="bulleted-list"><li style="list-style-type:disc">transition_matrices: 전이행렬</li></ul></li></ul><ul id="45a9230a-03bd-41bf-824f-d176a28f6b16" class="bulleted-list"><li style="list-style-type:square">관측치<ul id="803bc936-fb2e-4bf4-8a85-631cef4661e2" class="bulleted-list"><li style="list-style-type:disc">observation_matrices: 관측 행렬</li></ul><ul id="8c8d9e12-dc00-4054-8e3d-3f8f70a45b88" class="bulleted-list"><li style="list-style-type:disc">observation_offset: 관측편향</li></ul><ul id="0e4a69ed-395c-4203-994d-0f462f05385d" class="bulleted-list"><li style="list-style-type:disc">observation_covariance: 관측공분산</li></ul></li></ul></li></ul></li></ul><h3 id="ebaf9c23-6a32-4b00-96af-bc9c765a7a2b" class="">✔️ 웨이블릿</h3><ul id="e26214cd-ee74-49f8-ab00-903348cb6463" class="bulleted-list"><li style="list-style-type:disc">웨이블릿: 0을 중심으로 증가와 감소를 반복하는 진폭을 수반한 파동 같은 진동<ul id="7ff28303-79da-4499-949c-580518563aff" class="bulleted-list"><li style="list-style-type:circle">noise가 섞인 신호를 근사하고자 여러 주파수에서의 사인과 코사인 파동을 결합하는 푸리에 분석에 연관됨</li></ul><ul id="88744209-656b-45d6-810e-c6674bcd1ab8" class="bulleted-list"><li style="list-style-type:circle">이산/연속 신호를 여러 스케일의 요소로 분해하는 파동과 유사한 패턴</li></ul></li></ul><ul id="6d0168cf-c2b3-4662-a091-33aae2b33e07" class="bulleted-list"><li style="list-style-type:disc">웨이블릿 vs 푸리에 변석<ul id="e0a546c1-6138-4883-8251-6ed9d77cb8dc" class="bulleted-list"><li style="list-style-type:circle">푸리에 분석: 시간으로부터의 신호를 주파수 영역으로 변환하는데 유용</li></ul><ul id="73f41152-c798-4723-a9ae-df63e70a3923" class="bulleted-list"><li style="list-style-type:circle">웨이블릿: 각각 하나의 주파수 범위에 상응하는 여러 스케일에서 발생할 수 있는 특정 패턴을 필터링하는데 유용</li></ul></li></ul><ul id="22017c0f-051d-4b2f-b18c-6057d2b3aaf0" class="bulleted-list"><li style="list-style-type:disc">신호 noise 제거를 위해 웨이블릿 축소, 임계화 방법을 사용할 수 있음<ul id="eea313b5-f780-4dc5-a7e1-21f1fd6b277c" class="bulleted-list"><li style="list-style-type:circle">웨이블릿 변환: 데이터 세트의 세부 사항에 상응하는 계수들을 산출</li></ul><ul id="0fa0d686-d8ae-450c-ac2a-127d9c3f868f" class="bulleted-list"><li style="list-style-type:circle">임계화 방법<ul id="88f5c28a-df0f-423c-b3e0-b851eef21f58" class="bulleted-list"><li style="list-style-type:square">단순히 특정 임곗값 아래의 모든 계수가 진정한 신호를 표현하는데 불필요한 정보를 제거</li></ul><ul id="0e89e2b7-190f-431a-9664-ffe9014fafbb" class="bulleted-list"><li style="list-style-type:square">남아있는 계수들이 역웨이블릿 변환에 사용되어 noise가 제거된 데이터 세트를 복구</li></ul></li></ul></li></ul><h3 id="76a6f452-576a-4bab-bbb6-1d4f4d505de0" class="">✔️ 집라인</h3><ul id="1511928a-4e22-4658-a1a6-e9befd0e1f19" class="bulleted-list"><li style="list-style-type:disc">이벤트 기반의 백테스트 시스템<ul id="ba9f6413-09c3-4457-b98e-6e4c4ba7073f" class="bulleted-list"><li style="list-style-type:circle">퀀토피안에서 집라인을 프로덕션에서 사용</li></ul></li></ul><ul id="d6e8dfb2-ae58-494e-bfa6-e0d062d5bf3c" class="bulleted-list"><li style="list-style-type:disc">알고리즘에 선견 편향을 회피하는 과거 시점별 데이터를 제공</li></ul><h3 id="87a512c9-f76f-41c3-b0ba-3e71687fa848" class="">✔️ 알파렌즈</h3><ul id="6c4f7902-e434-4988-9f09-4def632e0260" class="bulleted-list"><li style="list-style-type:disc">예측 성과 분석을 위함</li></ul><ul id="b86d205c-9a24-4d5e-beab-bf8beeada6ac" class="bulleted-list"><li style="list-style-type:disc">유용한 분석<ul id="f74ac23e-e495-43ba-a606-8ddd9de3ffae" class="bulleted-list"><li style="list-style-type:circle">신호와 후속 기간의 수익률과의 상관계수</li></ul><ul id="7f67c19c-5e46-4004-84bf-10c05054c1e5" class="bulleted-list"><li style="list-style-type:circle">신호에 기반을 둔 균등 비중이나 팩터 가중의 포트폴리오 수익성</li></ul><ul id="440d9795-b8b6-4cf7-9482-02d8e25aacf9" class="bulleted-list"><li style="list-style-type:circle">잠재 거래 비용을 나타내는 팩터 회전율</li></ul><ul id="78769bab-c4d4-46ea-bd2a-e37ad03fb773" class="bulleted-list"><li style="list-style-type:circle">특정 이벤트 동안의 팩터 성과</li></ul><ul id="4003aaf3-2ebf-47fb-9556-a1c46040570c" class="bulleted-list"><li style="list-style-type:circle">위 내용에 대한 섹터별 내역</li></ul></li></ul><ul id="5d298c81-75be-4200-bb93-48f50728fa40" class="bulleted-list"><li style="list-style-type:disc">입력<ul id="14d0e9b3-4cf4-441d-849b-98a075f8855e" class="bulleted-list"><li style="list-style-type:circle">MeanReversion 팩터의 순위와 같은 유니버스에 대한 신호</li></ul><ul id="95800f00-bc0d-4576-9810-351de73961cb" class="bulleted-list"><li style="list-style-type:circle">보유 기간 동안의 자산에 투자해서 얻은 미래 수익률</li></ul></li></ul><ul id="2bf5cd13-848e-4abb-a2e1-20b8d003914a" class="bulleted-list"><li style="list-style-type:disc">pyfolio library</li></ul><h3 id="aab774a2-57ec-4d10-bc01-1a9efbbffea7" class="">✔️ 정보 계수</h3><ul id="19b68045-82aa-407b-bb17-3c08fb9c2077" class="bulleted-list"><li style="list-style-type:disc">정보 비율: 알파를 추적 리스크로 나눈 것</li></ul><ul id="a0123dab-df58-4dd2-b75a-9a5acbf63fa6" class="bulleted-list"><li style="list-style-type:disc">리스크 1 유닛당 평균 초과 수익률을 측정</li></ul><ul id="6292d86f-ba42-45af-bfe7-7307a6e18726" class="bulleted-list"><li style="list-style-type:disc">알파렌즈를 이용해 정보 계수(IC)를 얻음<ul id="ff2be028-a52b-41af-9871-e5af5dd409f4" class="bulleted-list"><li style="list-style-type:circle">스피어만 상관계수를 내부적으로 활용</li></ul></li></ul><ul id="36a181e1-499d-4bfe-8691-b2aaa9ce80ed" class="bulleted-list"><li style="list-style-type:disc">리스크 조정 IC: 평균 IC를 IC의 표준 편차로 나눈 것으로 구할 수 있음<ul id="125f1cfc-2584-4fef-964e-19d92a4f927f" class="bulleted-list"><li style="list-style-type:circle">IC=0 귀무가설에 대해 양측 t 테스트를 적용할 수 있음</li></ul></li></ul><h3 id="910b43c6-ea71-4c85-be09-0d78c0eae116" class="">✔️ 팩터 회전율</h3><ul id="1cbf3e5f-e996-4e2e-8033-9d18ad5c45cb" class="bulleted-list"><li style="list-style-type:disc">일련의 신호에 맞춰 포트폴리오를 조정하고자 얼마나 많은 거래가 필요한지 측정<ul id="4ee3e744-19d4-4215-9712-8b05ff95cb84" class="bulleted-list"><li style="list-style-type:circle">한 종목이 주어진 분위수의 변화를 어떤 빈도를 겪는지 확인</li></ul><ul id="31c3365c-1cd7-4e6f-bc90-4b9d1b2e6b1a" class="bulleted-list"><li style="list-style-type:circle">현재 팩터 5분위수에 있으나 이전 기간에는 없었던 종목의 비중을 측정</li></ul></li></ul><h2 id="f31e60b8-7139-43aa-b94b-e8d8dca8ff5a" class="">Reference</h2><ul id="253b633e-e2b1-478e-bef5-526de3b81c3a" class="bulleted-list"><li style="list-style-type:disc"><a href="https://brunch.co.kr/@quantdaddy/76">알파란 무엇인가?</a></li></ul><ul id="a2185963-6f00-49c7-91ea-71b88dba38f0" class="bulleted-list"><li style="list-style-type:disc"><a href="https://arxiv.org/pdf/1601.00991.pdf">Kakushadze 101개 알파 팩터 공식</a></li></ul><ul id="03d4a73f-59aa-4854-be27-15c47711fd13" class="bulleted-list"><li style="list-style-type:disc"><a href="http://wiki.hash.kr/index.php/%EC%8A%A4%ED%94%84%EB%A0%88%EB%93%9C">스프레드란?</a></li></ul><ul id="de49413a-263b-417e-a120-33f1a5ee8a04" class="bulleted-list"><li style="list-style-type:disc"><a href="https://blog.allmerits.com/list/view/?b=10203&amp;c=2060">허딩이란?</a></li></ul><ul id="df01db61-e557-46e8-8b0e-c7644d5b5bdc" class="bulleted-list"><li style="list-style-type:disc"><a href="https://velog.io/@hyksun2015/%EC%B9%BC%EB%A7%8C%ED%95%84%ED%84%B0%EB%A1%9C-%EC%A3%BC%EA%B0%80%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%8F%89%ED%99%9C%ED%99%94">Kalman Filter</a></li></ul><ul id="bf9fe131-0ab9-43de-9c6f-2a1620e91afa" class="bulleted-list"><li style="list-style-type:disc"><a href="https://ko.wikipedia.org/wiki/%EC%9B%A8%EC%9D%B4%EB%B8%94%EB%A6%BF">웨이블릿이란?</a></li></ul><p id="29b4db48-7cd4-42bc-ac14-1abd9757e823" class="">
+</p></div></article></body></html>
